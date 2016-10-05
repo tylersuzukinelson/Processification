@@ -20,6 +20,8 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
+  username: processification
+  password: <%= ENV['PROCESSIFICATION_DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
@@ -81,5 +83,3 @@ test:
 production:
   <<: *default
   database: processification_production
-  username: processification
-  password: <%= ENV['PROCESSIFICATION_DATABASE_PASSWORD'] %>
