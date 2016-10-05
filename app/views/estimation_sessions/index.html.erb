@@ -1,0 +1,16 @@
+<ul>
+  <li>
+    <%= link_to "Click here", new_estimation_session_path %>
+    to create a new estimation session
+  </li>
+  <% @sessions.each do |session| %>
+    <li>
+      <%= link_to session.created_at.to_date, session %>
+      <ul>
+        <% session.estimation_tickets.each do |ticket| %>
+          <li><%= link_to ticket.ticket, ticket %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
