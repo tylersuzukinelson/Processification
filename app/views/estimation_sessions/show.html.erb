@@ -1,0 +1,21 @@
+<ul>
+  <li>
+    Participants
+    <ul>
+      <% @session.users.each do |user| %>
+        <li>
+          <%= user.name %><%= " <em>(observer)</em>".html_safe if user.observer?(@session) %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    Tickets
+    <ul>
+      <% @session.estimation_tickets.each do |ticket| %>
+        <li>
+          <%= link_to ticket.ticket, ticket %>
+        </li>
+      <% end %>
+    </ul>
+</ul>
