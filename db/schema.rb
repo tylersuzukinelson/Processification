@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005201842) do
+ActiveRecord::Schema.define(version: 20161005202003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,18 @@ ActiveRecord::Schema.define(version: 20161005201842) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "team_memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.integer  "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "team_memberships", ["role"], name: "index_team_memberships_on_role", using: :btree
+  add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
+  add_index "team_memberships", ["user_id"], name: "index_team_memberships_on_user_id", using: :btree
+
   create_table "team_processes", force: :cascade do |t|
     t.integer  "team_id"
     t.string   "name"
@@ -158,6 +170,8 @@ ActiveRecord::Schema.define(version: 20161005201842) do
   add_foreign_key "retro_items", "users"
   add_foreign_key "retro_participants", "retro_sessions"
   add_foreign_key "retro_participants", "users"
+  add_foreign_key "team_memberships", "teams"
+  add_foreign_key "team_memberships", "users"
   add_foreign_key "team_processes", "teams"
   add_foreign_key "ticket_votes", "estimation_tickets"
   add_foreign_key "ticket_votes", "users"
