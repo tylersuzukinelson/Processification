@@ -38,5 +38,7 @@ module Processification
         ENV[key.to_s] = value
       end if File.exists?(env_file)
     end
+
+    config.secret_key = ENV['SECRET_KEY_BASE']
   end
 end
