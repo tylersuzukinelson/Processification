@@ -1,3 +1,5 @@
+<h1><%= @session.created_at.to_date %></h1>
+
 <ul>
   <li>
     Participants
@@ -17,5 +19,11 @@
           <%= link_to ticket.ticket, ticket %>
         </li>
       <% end %>
+      <li>
+        <%= form_for @session.estimation_tickets.new, url: estimation_tickets_estimation_session_path(@session) do |form| %>
+          <%= form.text_field :ticket %>
+          <%= form.submit %>
+        <% end %>
+      </li>
     </ul>
 </ul>
