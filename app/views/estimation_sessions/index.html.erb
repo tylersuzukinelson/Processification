@@ -1,6 +1,6 @@
 <ul>
   <li>
-    <%= link_to "Click here", new_estimation_session_path %>
+    <%= link_to "Click here", estimation_sessions_path, method: :post %>
     to create a new estimation session
   </li>
   <% @sessions.each do |session| %>
