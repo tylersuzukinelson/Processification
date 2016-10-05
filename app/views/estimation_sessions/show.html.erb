@@ -16,11 +16,11 @@
     <ul>
       <% @session.estimation_tickets.each do |ticket| %>
         <li>
-          <%= link_to ticket.ticket, ticket %>
+          <%= link_to ticket.ticket, [@session, ticket] %>
         </li>
       <% end %>
       <li>
-        <%= form_for @session.estimation_tickets.new, url: estimation_tickets_estimation_session_path(@session) do |form| %>
+        <%= form_for @session.estimation_tickets.new, url: estimation_session_estimation_tickets_path(@session) do |form| %>
           <%= form.text_field :ticket %>
           <%= form.submit %>
         <% end %>

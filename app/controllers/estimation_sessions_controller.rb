@@ -16,10 +16,10 @@ class EstimationSessionsController < ApplicationController
   private
 
   def session_ids
-    EstimationParticipant.where(user_id: current_user.id).limit(10).pluck(:estimation_session_id)
+    @session_ids ||= EstimationParticipant.where(user_id: current_user.id).limit(10).pluck(:estimation_session_id)
   end
 
   def scope
-    EstimationSession.where(id: session_ids)
+    @scope ||= EstimationSession.where(id: session_ids)
   end
 end

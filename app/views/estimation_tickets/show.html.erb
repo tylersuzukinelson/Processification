@@ -1,0 +1,19 @@
+<h1><%= @ticket.ticket %></h1>
+<em>
+  <%= link_to "edit", edit_estimation_session_estimation_ticket_path(@ticket.estimation_session, @ticket) %>
+  |
+  <%= link_to "destroy", estimation_session_estimation_ticket_path(@ticket.estimation_session, @ticket), method: :delete %>
+</em>
+
+<% if @ticket.pending_votes? %>
+  Vote here!
+<% else %>
+  <ul>
+    <% @ticket.ticket_votes.order(value: :desc).each do |vote| %>
+      <li>
+        <%= vote.value %> => <%= vote.user.name %>
+        <%= "<p>#{vote.vote_note.note}</p>".html_safe if vote.vote_note %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
