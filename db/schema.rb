@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005201624) do
+ActiveRecord::Schema.define(version: 20161005201842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "checklist_items", force: :cascade do |t|
+    t.integer  "process_checklist_id"
+    t.string   "name"
+    t.integer  "ordering"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "checklist_items", ["ordering"], name: "index_checklist_items_on_ordering", using: :btree
+  add_index "checklist_items", ["process_checklist_id"], name: "index_checklist_items_on_process_checklist_id", using: :btree
 
   create_table "estimation_participants", force: :cascade do |t|
     t.integer  "user_id"
@@ -138,6 +149,7 @@ ActiveRecord::Schema.define(version: 20161005201624) do
 
   add_index "vote_notes", ["ticket_vote_id"], name: "index_vote_notes_on_ticket_vote_id", using: :btree
 
+  add_foreign_key "checklist_items", "process_checklists"
   add_foreign_key "estimation_participants", "estimation_sessions"
   add_foreign_key "estimation_participants", "users"
   add_foreign_key "estimation_tickets", "estimation_sessions"
