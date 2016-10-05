@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005195555) do
+ActiveRecord::Schema.define(version: 20161005200138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,10 +63,12 @@ ActiveRecord::Schema.define(version: 20161005195555) do
     t.integer  "value"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "vote_note_id"
   end
 
   add_index "ticket_votes", ["estimation_ticket_id"], name: "index_ticket_votes_on_estimation_ticket_id", using: :btree
   add_index "ticket_votes", ["user_id"], name: "index_ticket_votes_on_user_id", using: :btree
+  add_index "ticket_votes", ["vote_note_id"], name: "index_ticket_votes_on_vote_note_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -86,6 +88,15 @@ ActiveRecord::Schema.define(version: 20161005195555) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "vote_notes", force: :cascade do |t|
+    t.integer  "ticket_vote_id"
+    t.text     "note"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "vote_notes", ["ticket_vote_id"], name: "index_vote_notes_on_ticket_vote_id", using: :btree
+
   add_foreign_key "estimation_tickets", "estimation_sessions"
   add_foreign_key "retro_items", "retro_sessions"
   add_foreign_key "retro_items", "users"
@@ -93,4 +104,6 @@ ActiveRecord::Schema.define(version: 20161005195555) do
   add_foreign_key "retro_participants", "users"
   add_foreign_key "ticket_votes", "estimation_tickets"
   add_foreign_key "ticket_votes", "users"
+  add_foreign_key "ticket_votes", "vote_notes"
+  add_foreign_key "vote_notes", "ticket_votes"
 end

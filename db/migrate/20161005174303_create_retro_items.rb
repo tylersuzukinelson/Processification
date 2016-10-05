@@ -10,5 +10,6 @@ class CreateRetroItems < ActiveRecord::Migration
     end
     add_foreign_key :retro_items, :users
     add_foreign_key :retro_items, :retro_sessions
+    add_index :retro_items, :category
   end
 end
