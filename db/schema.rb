@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20161005200547) do
   create_table "estimation_participants", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "estimation_session_id"
+    t.boolean  "observer"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
@@ -49,12 +50,14 @@ ActiveRecord::Schema.define(version: 20161005200547) do
     t.datetime "updated_at",       null: false
   end
 
+  add_index "retro_items", ["category"], name: "index_retro_items_on_category", using: :btree
   add_index "retro_items", ["retro_session_id"], name: "index_retro_items_on_retro_session_id", using: :btree
   add_index "retro_items", ["user_id"], name: "index_retro_items_on_user_id", using: :btree
 
   create_table "retro_participants", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "retro_session_id"
+    t.boolean  "observer"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

@@ -3,6 +3,7 @@ class CreateEstimationParticipants < ActiveRecord::Migration
     create_table :estimation_participants do |t|
       t.references :user, index: true
       t.references :estimation_session, index: true
+      t.boolean :observer
 
       t.timestamps null: false
     end

@@ -3,6 +3,7 @@ class CreateRetroParticipants < ActiveRecord::Migration
     create_table :retro_participants do |t|
       t.references :user, index: true
       t.references :retro_session, index: true
+      t.boolean :observer
 
       t.timestamps null: false
     end
