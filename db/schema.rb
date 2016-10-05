@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005195212) do
+ActiveRecord::Schema.define(version: 20161005195555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 20161005195212) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ticket_votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "estimation_ticket_id"
+    t.integer  "value"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "ticket_votes", ["estimation_ticket_id"], name: "index_ticket_votes_on_estimation_ticket_id", using: :btree
+  add_index "ticket_votes", ["user_id"], name: "index_ticket_votes_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -80,4 +91,6 @@ ActiveRecord::Schema.define(version: 20161005195212) do
   add_foreign_key "retro_items", "users"
   add_foreign_key "retro_participants", "retro_sessions"
   add_foreign_key "retro_participants", "users"
+  add_foreign_key "ticket_votes", "estimation_tickets"
+  add_foreign_key "ticket_votes", "users"
 end
