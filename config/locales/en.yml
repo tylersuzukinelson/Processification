@@ -20,4 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  home:
+    index:
+      checklist_tool: to use the process checklist tool
+      click_here: Click here
+      estimation_tool: to use the estimation tool
+      register: to register
+      retro_tool: to use the retrospective tool
+      sign_in: to sign-in
