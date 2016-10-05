@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005200138) do
+ActiveRecord::Schema.define(version: 20161005200547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "estimation_participants", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "estimation_session_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "estimation_participants", ["estimation_session_id"], name: "index_estimation_participants_on_estimation_session_id", using: :btree
+  add_index "estimation_participants", ["user_id"], name: "index_estimation_participants_on_user_id", using: :btree
 
   create_table "estimation_sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -97,6 +107,8 @@ ActiveRecord::Schema.define(version: 20161005200138) do
 
   add_index "vote_notes", ["ticket_vote_id"], name: "index_vote_notes_on_ticket_vote_id", using: :btree
 
+  add_foreign_key "estimation_participants", "estimation_sessions"
+  add_foreign_key "estimation_participants", "users"
   add_foreign_key "estimation_tickets", "estimation_sessions"
   add_foreign_key "retro_items", "retro_sessions"
   add_foreign_key "retro_items", "users"
