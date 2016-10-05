@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005201212) do
+ActiveRecord::Schema.define(version: 20161005201624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 20161005201212) do
   end
 
   add_index "estimation_tickets", ["estimation_session_id"], name: "index_estimation_tickets_on_estimation_session_id", using: :btree
+
+  create_table "process_checklists", force: :cascade do |t|
+    t.integer  "team_process_id"
+    t.string   "name"
+    t.integer  "ordering"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "process_checklists", ["ordering"], name: "index_process_checklists_on_ordering", using: :btree
+  add_index "process_checklists", ["team_process_id"], name: "index_process_checklists_on_team_process_id", using: :btree
 
   create_table "retro_items", force: :cascade do |t|
     t.integer  "user_id"
@@ -73,10 +84,12 @@ ActiveRecord::Schema.define(version: 20161005201212) do
   create_table "team_processes", force: :cascade do |t|
     t.integer  "team_id"
     t.string   "name"
+    t.integer  "ordering"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "team_processes", ["ordering"], name: "index_team_processes_on_ordering", using: :btree
   add_index "team_processes", ["team_id"], name: "index_team_processes_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
@@ -128,6 +141,7 @@ ActiveRecord::Schema.define(version: 20161005201212) do
   add_foreign_key "estimation_participants", "estimation_sessions"
   add_foreign_key "estimation_participants", "users"
   add_foreign_key "estimation_tickets", "estimation_sessions"
+  add_foreign_key "process_checklists", "team_processes"
   add_foreign_key "retro_items", "retro_sessions"
   add_foreign_key "retro_items", "users"
   add_foreign_key "retro_participants", "retro_sessions"
