@@ -17,11 +17,21 @@ class EstimationTicketsController < ApplicationController
   end
 
   def update
-    if ticket.update(ticket_params)
+    if ticket.try(:update, ticket_params)
       redirect_to [ticket.estimation_session, ticket], notice: "Ticket updated"
     else
       flash[:alert] = "Failed to update ticket"
       render :edit
+    end
+  end
+
+  def destroy
+    es = ticket.try(:estimation_session)
+    if ticket.try(:destroy)
+      redirect_to es, notice: "Ticket deleted"
+    else
+      flash[:alert] = "Failed to delete ticket"
+      redirect_to estimation_sessions_path
     end
   end
 
