@@ -6,7 +6,10 @@
 </em>
 
 <% if @ticket.pending_votes? %>
-  Vote here!
+  <%= form_for [@ticket, @vote] do |form| %>
+    <%= form.select :value, TicketVote::VALUES.invert %>
+    <%= form.submit "Vote" %>
+  <% end %>
 <% else %>
   <ul>
     <% @ticket.ticket_votes.order(value: :desc).each do |vote| %>

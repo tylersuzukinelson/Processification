@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20161005202003) do
   end
 
   add_index "ticket_votes", ["estimation_ticket_id"], name: "index_ticket_votes_on_estimation_ticket_id", using: :btree
+  add_index "ticket_votes", ["user_id", "estimation_ticket_id"], name: "index_ticket_votes_on_user_id_and_estimation_ticket_id", unique: true, using: :btree
   add_index "ticket_votes", ["user_id"], name: "index_ticket_votes_on_user_id", using: :btree
   add_index "ticket_votes", ["vote_note_id"], name: "index_ticket_votes_on_vote_note_id", using: :btree
 

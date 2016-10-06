@@ -11,6 +11,9 @@ class EstimationTicketsController < ApplicationController
   end
 
   def show
+    unless @vote = ticket.ticket_votes.find_by(user: current_user)
+      @vote = ticket.ticket_votes.new(user: current_user)
+    end
   end
 
   def edit

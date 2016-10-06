@@ -9,5 +9,6 @@ class CreateTicketVotes < ActiveRecord::Migration
     end
     add_foreign_key :ticket_votes, :users
     add_foreign_key :ticket_votes, :estimation_tickets
+    add_index :ticket_votes, [:user_id, :estimation_ticket_id], unique: true
   end
 end

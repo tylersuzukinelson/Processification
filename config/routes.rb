@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     resources :estimation_tickets, except: [:index, :new]
   end
 
+  resources :estimation_tickets, only: [] do
+    resources :ticket_votes, only: [:create, :update]
+  end
+
   # You can have the root of your site routed with "root"
   root 'home#index'
 
