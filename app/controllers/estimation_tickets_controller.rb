@@ -13,6 +13,18 @@ class EstimationTicketsController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
+  def update
+    if ticket.update(ticket_params)
+      redirect_to [ticket.estimation_session, ticket], notice: "Ticket updated"
+    else
+      flash[:alert] = "Failed to update ticket"
+      render :edit
+    end
+  end
+
   private
 
   def ticket

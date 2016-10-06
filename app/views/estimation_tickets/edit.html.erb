@@ -1,0 +1,12 @@
+<%= form_for [@ticket.estimation_session, @ticket] do |form| %>
+  <table>
+    <tr>
+      <td><%= form.label :ticket %></td>
+      <td><%= form.text_field :ticket %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= form.submit %></td>
+    </tr>
+  </table>
+<% end %>

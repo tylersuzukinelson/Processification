@@ -8,7 +8,7 @@
       <%= link_to session.created_at.to_date, session %>
       <ul>
         <% session.estimation_tickets.each do |ticket| %>
-          <li><%= link_to ticket.ticket, ticket %></li>
+          <li><%= link_to ticket.ticket, [ticket.estimation_session, ticket] %></li>
         <% end %>
       </ul>
     </li>
