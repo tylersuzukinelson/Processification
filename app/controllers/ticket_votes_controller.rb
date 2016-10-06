@@ -8,8 +8,16 @@ class TicketVotesController < ApplicationController
     end
   end
 
+  def update
+    if vote.update(vote_params)
+      redirect_to [ticket.estimation_session, ticket], notice: "Updated your vote!"
+    else
+      redirect_to [ticket.estimation_session, ticket], notice: "Failed to update your vote!"
+    end
+  end
+
   def destroy
-    if vote.destroy
+    if ticket.ticket_votes.destroy_all
       redirect_to [ticket.estimation_session, ticket], notice: "Voting restarted"
     else
       redirect_to [ticket.estimation_session, ticket], alert: "Failed to restart voting"
