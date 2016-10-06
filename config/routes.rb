@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :estimation_tickets, only: [] do
-    resources :ticket_votes, only: [:create, :update]
+    resources :ticket_votes, only: [:create, :update, :destroy]
   end
 
   # You can have the root of your site routed with "root"

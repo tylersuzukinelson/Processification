@@ -14,9 +14,10 @@
   <ul>
     <% @ticket.ticket_votes.order(value: :desc).each do |vote| %>
       <li>
-        <%= vote.value %> => <%= vote.user.name %>
+        <%= TicketVote::VALUES[vote.value] %> => <%= vote.user.name %>
         <%= "<p>#{vote.vote_note.note}</p>".html_safe if vote.vote_note %>
       </li>
     <% end %>
+    <li><%= link_to "Restart voting", estimation_ticket_ticket_vote_path(@ticket, @vote), method: :delete %></li>
   </ul>
 <% end %>

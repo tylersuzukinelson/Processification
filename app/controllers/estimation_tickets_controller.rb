@@ -4,7 +4,7 @@ class EstimationTicketsController < ApplicationController
   def create
     if estimation_session
       estimation_session.estimation_tickets.create(ticket_params)
-      redirect_to es, notice: "Created ticket"
+      redirect_to estimation_session, notice: "Created ticket"
     else
       redirect_to estimation_sessions_path, alert: "Failed to create ticket"
     end

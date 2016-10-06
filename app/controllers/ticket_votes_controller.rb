@@ -8,7 +8,19 @@ class TicketVotesController < ApplicationController
     end
   end
 
+  def destroy
+    if vote.destroy
+      redirect_to [ticket.estimation_session, ticket], notice: "Voting restarted"
+    else
+      redirect_to [ticket.estimation_session, ticket], alert: "Failed to restart voting"
+    end
+  end
+
   private
+
+  def vote
+    @vote ||= ticket.ticket_votes.find_by(user_id: current_user.id)
+  end
 
   def ticket
     @ticket ||= EstimationTicket.where(estimation_session_id: session_ids).find(params[:estimation_ticket_id])
